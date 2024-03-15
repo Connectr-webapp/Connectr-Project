@@ -1,0 +1,72 @@
+{% load emoji_tags %}
+{% load static %}
+<div class="profile-container scrollable-div">
+        <div class="w-100 text-center mb-3">
+            {% if user_profile.profile_picture %}
+            <img class="profile_pic" src="{{ user_profile.profile_picture.url }}" alt="profile image">
+            {% else %}
+            <img class="profile_pic" src="{% static 'noimage.png' %}" alt="default image">
+            {% endif %}
+        </div>
+    <h2>{{ user_profile.user.username }}</h2>
+    <h5 class="status ">Current Status: {{ user_profile.status }}</h5>
+
+    <hr>
+    {% if user_profile.user.username != request.user.username or edit_profile  %}
+        <div class="links-container">
+            <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+            <div class="links-body pb-2">
+                {% if edit_profile %}
+                    <button class="btn btn-ci profile-img-modal" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+                        Change profile Picture</button>
+                    <button class="btn btn-ci status-update-btn" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+                        Change status</button>
+                    <button class="btn btn-ci edit-profile-btn d-flex d-sm-flex d-lg-none">Edit Profile</button>
+                    <button class="btn btn-ci view-save-posts-btn">Saved Posts</button>
+
+                {% else%}
+                    <a href="{% url 'new_message' user_profile.user.id %}" class="btn btn-info profile-img-modal" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+                        Message</a>
+                
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <!-- </div> -->
+    {% if user_profile.location %}
+        <div class="links-container">
+            <div class="links-heading">Location <i class="fa-solid fa-earth-americas"></i></div>
+            <div class="links-body">
+                {{ user_profile.location }}</div>
+        </div>
+    {% endif %}
+    {% if user_profile.bio %}
+        <div class="links-container">
+            <div class="links-heading">Bio</div>
+            <div class="links-body"><p>{{ user_profile.bio }}</p>
+            </div>
+        </div>
+    {% endif %}
+    {% if user_profile.website %}
+        <div class="links-container">
+            <div class="links-heading">Website <i class="fa fa-link fa-1x"></i></div>
+            <div class="links-body"><a href="https://{{ user_profile.website }}" target="_blank">{{ user_profile.website }}</a>
+            </div>
+        </div>
+    {% endif %}
+    {% if user_profile.linkedin %}
+        <div class="links-container">
+            <div class="links-heading">Linkedin <i class="fa fa-link fa-1x"></i></div>
+            <div class="links-body"><a href="https://{{ user_profile.linkedin }}" target="_blank">
+                {{ user_profile.linkedin }}</a></div>
+        </div>
+    {% endif %}
+
+    {% if user_profile.github %}
+        <div class="links-container">
+            <div class="links-heading">Github <i class="fa fa-link fa-1x"></i></div>
+            <div class="links-body"><a href="https://{{ user_profile.github }}" target="_blank">
+                {{ user_profile.github }}</a></div>
+        </div>
+    {% endif %}
+</div>

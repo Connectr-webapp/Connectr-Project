@@ -1,0 +1,64 @@
+{% load static %}
+{% load emoji_tags %}
+
+{% for single_post in posts %}
+    <!--- Post -->
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Profile picture -->
+                    <div class="mr-2">
+                        {% if single_post.created_by.userprofile and single_post.created_by.userprofile.profile_picture %}
+                            <img class="rounded-circle profile-pic-medium profile-pic" data-url="{% url 'view_user_profile' single_post.created_by.userprofile.id %}" src="{{ single_post.created_by.userprofile.profile_picture.url }}" alt="Profile Picture">
+                        {% else %}
+                            <img class="rounded-circle profile-pic-medium profile-pic" data-url="{% url 'view_user_profile' single_post.created_by.userprofile.id %}" src="{% static 'noimage.png' %}" alt="Profile Picture Placeholder">
+                        {% endif %}
+                    </div>
+                    <!-- Username and date -->
+                    <div class="ml-2 ">
+                        <div class="h5 m-2">{{ single_post.created_by }}</div>
+                        <div class="dark-grey h7 ml-2"> <i class="fa fa-clock-o"></i>{{ single_post.created_date|date:"H:i, b j"|upper }}</div>
+                    </div>
+                </div>
+                <div>
+                    <!-- Dropdown menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-drop-down dropdown-toggle dark-grey" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="menu dropdown">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right custom-box p-0 m-0">
+                            <div class="links-container m-0 p-0">
+                                <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                                <div class="links-body pb-2">
+                                    <button class="dropdown-item btn-ci remove-post-btn" data-csrf="{{ csrf_token }}" data-url="{% url 'remove_saved_post' post_id=single_post.id %}">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card body text and images -->
+        <div class="card-body">
+            <div class="card-text">
+                {{ single_post.post|safe|emoji_replace }}
+            </div>
+            {% if single_post.images %}
+                <div class="post-images">
+                    {% for image_url in single_post.get_image_urls %}
+                        {% if image_url %}
+                            <img src="{{ image_url }}" style="width: 200px;" alt="comment image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-footer d-block d-sm-flex justify-content-between align-items-center">
+            <div class="card-link">
+                <a href="{% url 'saved-post' single_post.post_channel.id single_post.id %}" class="view-in-channel">view in channel</a>
+            </div> 
+        </div>
+    </div>
+
+{% endfor %}

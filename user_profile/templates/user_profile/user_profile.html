@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% load emoji_tags %}
+
+{% block extra_js %}
+    <script src="{% static 'user_profile/js/user-profile.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="user-profile ">
+        {% include 'user_profile/view-user-profile.html' with edit_profile=True %}
+    <div class="update_profile_container scrollable-div d-none d-lg-flex">
+
+        <div class="custom-box fixed-header d-flex flex-dir-row d-none d-lg-none">
+            <button class="btn mr-3 close-edit-profile-btn">X</button>
+            <h3>Edit Profile</h3>
+        </div>
+
+        <div class="p-3">
+            <h2 class="h1">Personal Info</h2>
+            <hr>
+            <form class="form" method="post" action="{% url 'edit_user_profile' %}">
+                {% csrf_token %}
+                {{ Edit_profile_form.as_p }}
+                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+                    Update</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="saved-posts-container d-none">
+        <div class="custom-box fixed-header d-flex flex-dir-row">
+            <button class="btn mr-3 saved-posts-close-btn">X</button>
+            <h3>Saved Post's</h3>
+        </div>
+        <div class="py-5 px-3 scrollable-div h-100">
+            {% if posts %}
+            {% include 'user_profile/saved-posts.html' %}
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    <script>
+        let profileImgModal = 
+            `{% if user_profile.profile_picture %}
+                <img class="profile_pic" src="{{ user_profile.profile_picture.url }}" alt="profile image">
+                {% else %}
+                <img class="profile_pic" src="{% static 'noimage.png' %}" alt="default image">
+                {% endif %}
+                <form class="form" method="post" enctype="multipart/form-data"  data-url='{% url "update_profile_image" %}'>
+                    {% csrf_token %}
+                    {{ profile_image_form.as_p }}
+                    <button class="sub-form btn-success btn" type="submit" data-dismiss="modal">Update Profile Image</button>
+                </form>
+            `;
+    
+        let statusModalBody = 
+            `<form class="form" method="post" data-url='{% url "update_status" %}'>
+                {% csrf_token %}
+                {{ status_form.as_p }}
+                <button class="sub-form btn-success btn" type="submit" data-dismiss="modal">Update Status</button>
+             </form>
+            `;
+
+        {% if status %}
+            let status = '{{ status }}';
+            let message = 'Updated Successfully!!'
+            if(status === 'error'){
+                message = 'Error: Updating profile!!'
+            }
+            displayMessage({'status': '{{ status }}', 'message': `${message}`}, 'body')
+        {% endif %}
+
+    </script>
+
+{% endblock %}

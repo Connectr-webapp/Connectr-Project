@@ -1,0 +1,162 @@
+/* ///////////////////// user profile ///////////////////////////// */
+
+/* user profile pic, social links and status */
+.user-profile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/*/////////////////////////// profile  ////////////////////////////////*/
+
+.profile-container {
+    padding: 50px 30px;
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid var(--ci-orange);
+    flex: 1 1 30%;
+}
+
+.links-container {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid rgb(154, 153, 153);
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.links-heading {
+    background-color: rgba(168, 168, 168, 0.286);
+    padding: 5px 0 5px 5px;
+    border-bottom: 1px solid rgb(154, 153, 153);
+}
+
+.links-body {
+    padding: 5px 5px 5px 5px;
+}
+
+/*/////////////////////////// update profile ////////////////////////////////*/
+
+.update_profile_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 0; /* Remove the margin-top */
+    border-right: 1px solid var(--ci-orange);
+    max-width: 100%;
+    min-width: 40%;
+    flex: 1 10 100%;
+    padding-bottom: 100px;
+}
+
+.form {
+    width: 100% !important;
+}
+
+.form label {
+    font-size: 1.1em;
+    font-weight: 400;
+    margin: 5px 0;
+}
+.form input {
+    width: 100%;
+    height: 30px;
+    min-height: 50px;
+    padding: 5px;
+    border-radius: 5px;
+    border-color: rgba(128, 128, 128, 0.234);
+}
+
+.form textarea {
+    width: 100%;
+    height: 50px;
+    padding-top: 13px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 2px solid rgba(128, 128, 128, 0.234);;
+} 
+
+/*/////////////////////////// saved posts ////////////////////////////////*/
+
+/* saved posts container */
+.saved-posts-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    flex: 1 10 100%;
+    padding-bottom: 50px;
+}
+
+/* menu icon */
+.btn-drop-down {
+    background-color: var(--background);
+    color: var(--ci-orange);
+}
+
+.btn-drop-down:hover {
+    background-color: var(--background);
+    border-radius: 5px;
+    box-shadow: var(--sm-box-shadow); 
+}
+
+
+.fixed-header {
+    width: 100%;
+    position: sticky;
+    top:0;
+    z-index: 5;
+    background-color: var(--peach);
+    padding: 20px;
+}
+
+.fixed-header button {
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--background);
+    border-radius: 10px;
+    border: 1px solid var(--ci-orange);
+    
+}
+
+.saved-posts-container .card {
+    margin-bottom: 20px;
+}
+
+.saved-posts-container button {
+    border: 1px solid black;
+    background-color: var(--background);
+}
+
+.saved-posts-container button:hover {
+    background-color: white;
+
+}
+.saved-posts-container .card-header {
+    background-color: var(--peach)
+} 
+
+.profile_pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+/* comments link on post footer */
+.view-in-channel {
+    display: flex;
+    flex-direction: row;
+    padding: 5px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease-in-out; /* Add a smooth transition effect */
+    justify-content: center;
+    color: var(--dark-grey);
+    border: 1px solid var(--dark-grey);
+}
+
+.view-in-channel:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    border: 1px solid #ccc; /* Add a border for the "View in Comments" link */
+    color: var(--ci-orange);
+}
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="all-auth-container h-100 w-100 scrollable-div">
+    <div class="user_card">
+        <div class="brand_logo_container">
+            <img src="{% static 'logo.png' %}" class="brand_logo" alt="Logo">
+        </div>
+        <div class=" py-2 px-3 m-auto">
+            <h2>Contact Us</h2>
+            <hr>
+            {% if message %}
+                <p class="p-3 bg-danger text-white"> Error: {{ message }}</p>
+            {% elif success %}
+                <p class="p-3 bg-success text-white"> Success: {{ success }}</p>
+            {% else %}
+                <p>Have a question or feedback? Fill out the form below to get in touch with us.</p>
+            {% endif %}
+
+            <form class="w-100 contact-container" method="post" action="/user_profile/contact/">
+                {% csrf_token %}
+                <div>
+                    {{ form.subject.errors }}
+                    <div class="email-subject">
+                        <label for="{{ form.subject.id_for_label }}">Subject:</label>
+                        {{ form.subject }}
+                    </div>
+                    
+                    {{ form.email.errors }}
+                    <div class="email-subject">
+                        <label for="{{ form.email.id_for_label }}">Email:</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+                {{ form.message.errors }}
+                <p>
+                    <label for="{{ form.message.id_for_label }}">Message:</label>
+                    {{ form.message }}
+                </p>
+            
+                <button class="btn btn-success" type="submit">Submit</button>
+            </form>
+            
+            <a class="btn-info btn mt-5 nav-link logo w-50 mx-auto text-dark" href="{% url 'channels' %}">Back To Homepage</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
