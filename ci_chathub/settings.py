@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 'ci-chathub-f163e2297a1b.herokuapp.com']
+                 '.vercel.app']
 
 
 # Application definition
