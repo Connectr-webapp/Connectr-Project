@@ -1,0 +1,479 @@
+/*//////////////////////   channels styles ///////////////////////*/
+/* style for channels list */
+.channels-list { 
+    border-right: 2px solid var(--ci-orange);
+    min-width: 400px;
+    background: #fcfcfc;
+}
+
+.channels-list .active {
+    font-weight: bolder;
+    color: black !important;
+}
+
+.unread-indicator {
+    width: 20px;
+    height: 20px;
+}
+
+.unread-indicator  p{
+    font-size: 7px;
+}
+
+.single {
+    padding: 20px 10px;
+    margin: 30px 0;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.pull-right {
+    float: right;
+}
+    
+.single h3.side-title {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    font-size: 20px;
+    text-transform: uppercase; 
+}
+    
+.single h3.side-title:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #ff173c;
+    display: block;
+    margin-top: 6px; 
+}
+    
+.single ul {
+    margin-bottom: 0; 
+}
+
+.single li a {
+    color: #666;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 40px;
+    display: block;
+    text-decoration: none; 
+}
+
+.single li:last-child a {
+    border-bottom: 0; 
+}
+
+/* //////////////////////   Comments,Posts section styles ///////////////////////  */
+
+.posts-container {
+    position: relative;
+    height: 100%;
+    background-color: var(--background);
+    display: none;
+}
+
+#post-list {
+    position: relative;
+}
+
+.load-postbtn-container {
+    position: absolute;
+    bottom: 140px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin: 0 5%;
+}
+
+.posts-mobile-header {
+    z-index: 2;
+}
+
+.load-new-posts {
+    border-radius: 30px;
+    background-color: var(--ci-orange);
+    color: white;
+    z-index: 10;
+}
+
+.load-new-posts:hover {
+    box-shadow: var(--sm-box-shadow);
+}
+
+/* menu icon */
+.btn-drop-down {
+    background-color: var(--background);
+    color: var(--ci-orange);
+}
+
+.btn-drop-down:hover {
+    background-color: var(--background);
+    border-radius: 5px;
+    box-shadow: var(--sm-box-shadow); 
+}
+
+.comments-container {
+    position: relative;
+    display: none;
+    border-left: 1px solid var(--ci-orange);
+    width: 700px;
+    height: 100%;
+    background-color: var(--background);
+}
+
+.comments-header, .posts-mobile-header {
+    background-color: var(--peach);
+}
+
+.comments-close-btn, .posts-close-btn {
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--background);
+    border-radius: 10px;
+    border: 1px solid var(--ci-orange);
+}
+
+.comments-close-btn:hover, .posts-close-btn:hover {
+    background-color: var(--background);
+    box-shadow: var(--sm-box-shadow);
+}
+
+/* posts/comments card */
+.card {
+    margin: 20px 10px;
+}
+
+.card-header {
+    background-color: var(--peach) !important;
+}
+
+.card-text  {
+    float: left;
+}
+
+.card-text  a {
+    color: #0068d9;
+    background-color: var(--background);
+    padding: 3px 5px;
+    border-radius: 10px;
+}
+
+.card-text  a:hover {
+    text-decoration: underline;
+}
+
+.card-text img {
+    width: 30px;
+    height: 30px;
+}
+
+.card-header img, .comments-profile-img {
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+}
+
+.card-footer img {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    border-radius: 20% !important;
+}
+
+/* time on posts */
+.h7 {
+    font-size: 0.8rem;
+}
+
+/* images on comments and posts body */
+.post-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    width: 100%;
+    height: fit-content;
+    margin: 50px auto 0 auto;
+}
+
+.post-images img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+.post-images img:hover {
+    box-shadow: var(--lg-box-shadow); 
+    cursor: zoom-in;
+}
+
+/* comments link on post footer */
+.comments-link {
+    display: flex;
+    flex-direction: row;
+    padding: 5px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease-in-out; /* Add a smooth transition effect */
+    justify-content: center;
+    color: black;
+}
+
+
+.comments-link:hover {
+    background-color: #f0f0f0; /* Change the background color on hover */
+    border: 1px solid #ccc; /* Add a border for the "View in Comments" link */
+    color: var(--ci-orange);
+}
+
+.comment-date {
+    display: flex;
+}
+
+.view-comments {
+    display: none;
+}
+
+.comments-link:hover .comment-date {
+    display: none;
+}
+
+.comments-link:hover .view-comments {
+    display: flex; 
+}
+
+.profile-pics {
+    display: flex;
+    justify-content: end;
+    margin: 0 1px;
+    flex-direction: row;
+}
+/* ///////////////// emoji buttons and modal   //////////////////// */
+
+.card-emoji-btn {
+    position: relative;
+    margin-right: 10px;
+    z-index: 1;
+}
+
+.card-emoji-btn::after {
+    content: '+';
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background-color: white;
+    color: var(--ci-orange);
+    border-radius: 50%;
+    width: 11px;
+    height: 11px;
+    line-height: 10px;
+    font-size: 1.2em;
+}
+
+.card-emoji-btn:hover::before {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    content: 'Add Emoji';
+    width: 100px;
+    background-color: black;
+    position: absolute;
+    top: -35px;
+    left: -5px;
+    color: white;
+    border-radius: 20px;
+    font-size: 12px;
+    padding: 3px;
+    z-index: 1;
+}
+
+.card-emoji-btn:hover::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    border-width: 10px;
+    border-style: solid;
+    background-color: transparent;
+    border-color: black transparent transparent transparent;
+    z-index: 0;
+}
+
+.smiley-plus-icon::before {
+    color: var(--ci-orange); 
+    position: absolute; 
+    top: 0; 
+    right: 0;
+    background-color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    line-height: normal;
+}
+
+/* added emoji users modal */
+.emoji-user-count-modal {
+    position: absolute;
+    bottom: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.added-emoji-btn .emoji {
+    width: 20px;
+    height: 20px;
+}
+
+.added-emoji-btn {
+    border: 2px solid var(--ci-orange) !important;
+    border-radius: 30% !important;
+    background-color: var(--background) !important;
+    width: fit-content !important;
+    line-height: normal;
+    padding: 3px 5px !important;
+}
+
+/* ///////////////// CSS to style the add to channel overlay  //////////////////// */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    z-index: 1; /* Ensure it's above other elements */
+    backdrop-filter: blur(5px); /* Apply the blur effect */
+}
+
+/* CSS to style the "Add Channel" button on the overlay */
+#add-channel-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+/* //////////////////// modal for images and deleting posts/comments ///////////////////*/
+.modal-dialog {
+    max-width: 100%;
+    height: 90%;
+}
+
+.modal-open .modal {
+    overflow-y:hidden;
+    background-color: #000;
+}
+
+.modal-open {
+    padding: 0 !important;
+}
+
+.modal-content {
+    width: 80%;
+    height: 90%;
+    margin: auto auto;
+}
+
+.modal-content img {
+    margin: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y:auto;
+    overflow-x:auto;
+}
+
+/* image modal btns for zoom */
+.zoom-in,.zoom-out {
+    background-color: #bab6b6;
+}
+
+.zoom-in {
+    border-left: 1px solid rgb(80, 77, 77);
+    border-radius: 50px 0 0 50px; /* Adjust border-radius to create an oval shape */
+    width: 40px;
+}
+.zoom-out {
+    border-right: 1px solid rgb(80, 77, 77);
+    border-radius: 0 50px 50px 0; /* Adjust border-radius to create an oval shape */
+    width: 40px;
+}
+
+/* delete post/comment buttons */
+.btn-oval{
+    background: linear-gradient(#889ad6, #626f9a, #3d486d);
+    color: #fff;
+    border-radius: 20px;
+    padding: 0.5em 2em;
+    font-size: 18px;
+    border: 2px solid #4b5986;
+    transition: all .3s ease-in-out;
+}
+
+.btn-oval:hover,.btn-oval:focus{
+    background: linear-gradient(#889ad6, #626f9a);
+    color: #fff;
+    border-color: #626f9a !important;
+    transition: all .3s ease-in-out;
+}
+
+
+/* /////////////////////// media queries ///////////////////////// */
+/* CSS for small screens (up to the "lg" breakpoint) */
+@media (max-width: 991.98px) {
+    /* style for channels list on mobile*/
+    .channels-list { 
+        margin: 0 auto;
+        border-right: none;
+        min-width: 100%;
+        text-align: center;
+    }
+    
+    .hide {
+        display: none;
+    }
+ /* posts card */
+    .card {
+        margin: 20px 5px;
+    }
+}
+
+@media (max-width: 1300.98px) {
+    /* makes the comments list full screen at the small break point
+     and covers post list on screens upto 1110px */
+    .comments-container {
+        border-left: none;
+        width: 100%;
+    }
+
+    .comments-link {
+        width: fit-content;
+        padding: 5px; 
+        border-radius: 5px;
+        border: 1px solid var(--ci-orange); 
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    .comment-date {
+        display: flex;
+    }
+    .view-comments {
+        display: none;
+    }
+    
+}
+
+
+
+

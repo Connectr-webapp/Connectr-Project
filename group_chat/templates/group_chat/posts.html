@@ -1,0 +1,50 @@
+{% load static %}
+{% load emoji_tags %}
+
+<!-- Mobile header -->
+<div class="posts-mobile-header border-bottom p-3 custom-box d-flex d-lg-none flex-dir-row">
+    <!-- Close button -->
+    <button class="btn posts-close-btn position-absolute"><i class="fa-solid fa-x" style="color: var(--ci-orange);"></i></button>
+    <h4 class="text-center w-100">Post's #{{ channel.name }}</h4>
+</div>
+
+<!-- Posts list populated by Django -->
+<div id="posts-list" 
+        class="scrollable-div h-100" 
+        data-summernote-url="{% url 'channel_posts' channel.id %}"
+        data-posts-url="{% url 'channel_posts' channel_id=channel.id %}?page=0"
+        data-channel-id="{{ channel.id }}">
+
+    {% for single_post in posts %}
+        <!-- Post -->
+        {% include 'group_chat/single-post.html' with single_post=single_post %}
+        <!-- Post /////-->
+    {% endfor %}
+    
+    <div class="load-postbtn-container">
+        <button class="load-new-posts btn d-none"><i class="fa-solid fa-arrow-down" style="color: #fcfcfd;"></i> Latest Posts</button>
+    </div>
+</div>
+
+<!-- Overlay that shows if the user is not added to the channel -->
+{% if not request.user in channel_users %}
+    <!-- Button to add channel -->
+    <div id="overlay">
+        <form method="post" 
+            action="{% url 'add_user_to_channel' channel_id=channel.id user_id=user.id %}" 
+            class="vh-100 d-flex justify-content-center align-items-center" 
+            id="add-user-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Join Channel</button>
+        </form>
+    </div>
+{% endif %}
+
+<!-- JavaScript code -->
+<script>
+    $(document).ready(function() {
+        lastPageNum = '{% if last_page_num %}{{ last_page_num }}{% endif %}'
+        prevPageNum = "{% if prev_page_number %}{{ prev_page_number }}{% endif %}"
+        changeGroup()
+    });
+</script>

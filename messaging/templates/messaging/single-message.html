@@ -1,0 +1,61 @@
+{% load static %}
+{% load emoji_tags %}
+
+<div class="message {% if message_list and message.sender == user  %}my-message{% elif message_list %}info{% else %}new-message{% endif %}" 
+     data-msg-id="{{ message.id }}">
+    {% if message.sender.userprofile and message.sender.userprofile.profile_picture %}
+        <img class="img-circle medium-image profile-pic" 
+        src="{{ message.sender.userprofile.profile_picture.url }}" 
+        data-profile-url="{% url 'view_user_profile' message.sender.userprofile.id %}" 
+        alt="Profile Picture">
+    {% else %}
+        <img class="img-circle medium-image profile-pic" 
+        src="{% static 'noimage.png' %}" 
+        data-profile-url="{% url 'view_user_profile' message.sender.userprofile.id %}" 
+        alt="Profile Picture Placeholder">
+    {% endif %}
+    <div class="message-body">
+        <div class="message-body-inner">
+            <div class="message-info">
+                <h4>{{ message.sender.username }} </h4>
+                <h5> <i class="fa fa-clock-o"></i>{{ message.timestamp|date:"H:i, b j"|upper }}</h5>                     
+                {% if message.sender == user %}
+                    <div class="dropdown message-dropdown">
+                        <button class="btn dropdown-toggle p-0 btn-drop-down mx-1" type="button" data-toggle="dropdown" aria-label="menu dropdown">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right p-0">
+                            <div class="links-container m-0 p-0">
+                                <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                                <div class="links-body pb-2">
+                                    <button class="dropdown-item btn-ci edit-btn">Edit</button>
+                                    <button class="dropdown-item btn-ci message-delete-btn" data-delete-url="{% url 'delete_message' message_id=message.id %}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="message-text">
+                {{ message.content|safe|emoji_replace }}
+            </div>
+            {% if message.images %}
+                <div class="post-images">
+                    {% for image_url in message.get_image_urls %}
+                        {% if image_url %}
+                            <img src="{{ image_url }}" alt="message image">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    
+        <div id="post-emoji" class="card-link message-emoji-container">
+            <!-- Loop through emojis and generate list items -->
+            {% url 'messages_emoji' instance_id=message.id as emoji_url %}
+            {% include 'includes/emoji.html' with instance=message url=emoji_url %}
+        </div>
+    </div>
+    <br>
+</div>   

@@ -1,0 +1,52 @@
+{% load static %}
+{% load emoji_tags %}
+
+<!-- Mobile header -->
+<div class="p-2 custom-box d-flex d-lg-none flex-dir-row align-items-center ">
+    <!-- Close button -->
+    <button class="btn close-messages-btn  d-lg-none"><i class="fa-solid fa-x" style="color: var(--ci-orange);"></i></button>
+    
+    <div class="ml-2 {% if single_post.created_by.userprofile.status == 'active' %} user-online {% else %} user-offline {% endif %}">
+        <img class="p-1 img-circle profile-pic-medium profile-pic" 
+        src="
+        {% if message.receiver.userprofile and message.receiver.userprofile.profile_picture %}
+        {{ receiver.userprofile.profile_picture.url }}
+        {% else %}
+        {% static 'noimage.png' %}
+        {% endif %}
+        " 
+        alt="Profile Picture"
+        data-profile-url="{% url 'view_user_profile' receiver.userprofile.id %}">
+    </div>
+    <h4 class="ml-3 w-100">{{ receiver.username }} </h4>
+</div>
+
+
+<!-- message list populated by Django -->
+<div id="message-list" 
+    class="scrollable-div py-3 h-100" 
+    data-summernote-url="{% url 'send_message' conversation_id %}"
+    data-conversation-id="{{ conversation_id }}"
+    data-edit-url="{% url 'edit_message' conversation_id=conversation_id message_id=0 %}">
+
+    {% if messages %}
+        {% for message in messages %}
+            {% include 'messaging/single-message.html' with message=message message_list=True %}  
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+<!-- JavaScript code -->
+<script>
+    $(document).ready(function() {
+        let summernoteUrl = $('#message-list').data('summernote-url');
+        let conversationId = $('#message-list').data('conversation-id');
+
+        // Initialize summernote enhancer class
+        summernoteEnhancerPosts.init('#messages-list-container', summernoteUrl)
+        // Start the WebSocket for posts
+        startWebSocket('messaging', conversationId)
+
+    });
+</script>

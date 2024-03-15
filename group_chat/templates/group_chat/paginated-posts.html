@@ -1,0 +1,14 @@
+{% load static %}
+{% load emoji_tags %}
+
+{% for single_post in posts %}
+    <!-- Post -->
+    {% include 'group_chat/single-post.html' with single_post=single_post %}
+    <!-- Post /////-->
+{% endfor %}
+
+<script>
+    $(document).ready(function() {
+        prevPageNum = "{% if prev_page_number %}{{ prev_page_number }}{% endif %}"
+    });
+</script>

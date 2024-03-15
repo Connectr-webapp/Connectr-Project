@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% load emoji_tags %}
+
+<!-- Include CSS links for the groupchat app -->
+{% block extra_css %}
+    <link href="{% static 'messaging/css/messaging.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="w-100 h-100 d-flex flex-dir-row messaging">
+    <div class="inbox-container">
+        <!-- Search form -->
+        <form class="panel-search-form info no-margin-bottom">
+            <input type="text" class="form-control" name="search" placeholder="Type @ to search" autocomplete="off">
+            <span class="fa fa-search form-control-feedback"></span>
+        </form>
+
+        <!-- Message list links -->
+        <div class="message-list-links-outter">
+            <ul class="list-unstyled">
+                {% for message in messages %}
+                    <li class="message-link msg{{ message.conversation.id }}" 
+                    data-userid="{% if user.id == message.sender.id %}{{ message.receiver.id}}{% else %}{{ message.sender.id}}{% endif %}" 
+                    data-message-list-url="{% url 'message_list' conversation_id=message.conversation.id %}">
+                        <!-- Profile image and user information -->
+                        <div class="img-count">
+                            {% if message.conversation.id in unread_messages %}
+                                {% if message.receiver == request.user %}
+                                    <div class="message-count">NEW</div>
+                                {% endif %} 
+                            {% endif %} 
+                            {% if message.sender.userprofile.profile_picture %}
+                                <div class="{% if single_post.created_by.userprofile.status == 'active' %} user-online {% else %} user-offline {% endif %}">
+                                    <img alt="profile picture" 
+                                    class="img-circle medium-image" 
+                                    src="{% if message.sender == user %}{{ message.receiver.userprofile.profile_picture.url }}{% else %}{{ message.sender.userprofile.profile_picture.url }}{% endif %}">
+                                </div>
+                            {% else %}
+                                <img alt="profile picture" class="img-circle medium-image" src="{% static 'noimage.png' %}">
+                            {% endif %}
+                        </div>
+
+                        <!-- Message information -->
+                        <div class="info-combo">
+                            <h3 class="no-margin-bottom name"> {% if message.sender == user %}{{ message.receiver.username }}{% else %}{{ message.sender.username }}{% endif %}</h3>
+                            <h5 class="d-flex flex-dir-row">
+                                <span class="mr-1">{% if message.sender == user %}You: {% else %}{{ message.sender.username }}: {% endif %} </span>
+                                <p>{{ message.content|safe|emoji_replace }}</p>
+                            </h5>
+                        </div>
+
+                        <!-- Time and delete icon -->
+                        <div class="time-del-icon">
+                            <span class="message-time">
+                                {% now "Y-m-d" as current_datetime %}             
+                                {% with message_date=message.timestamp%}
+                                    {% if message_date|date:"Y-m-d" == current_datetime %}
+                                        {{ message_date|date:"H:i"|upper }} <!-- Display time -->
+                                    {% else %}
+                                        {{ message_date|date:"M j"|upper }} <!-- Display date -->
+                                    {% endif %}
+                                {% endwith %}
+                            </span>
+                            {% if not new_message %}
+                                <span class="fa fa-trash-o delete-conversation" 
+                                    data-url="{% url 'delete_conversation' conversation_id=message.conversation.id %}"
+                                    data-csrf-token="{{ csrf_token }}"
+                                    data-conv-id="{{ message.conversation.id}}"></span>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}  
+            </ul>
+        </div>
+    </div>
+
+    <!-- Container where posts get loaded into with ajax -->
+    <div id="messages-list-container" class="w-100 d-none d-lg-flex flex-column"></div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+    <script src="{% static 'messaging/js/messaging.js' %}"></script>
+
+    <script>     
+        {% if new_message %}
+            $('.message-link:last').click()
+        {% elif receiver %}
+            $('.message-link[data-userid="{{ receiver.id }}"]').click();
+        {% endif %}
+
+        // Define message tags for autocomplete
+        messageTags = [
+            {% for user in conversation_users %}
+                {% if user != request.user %}
+                    {
+                        label: '{{ user.username }}',
+                        value: '{{ user.username }}',
+                        profile_img: '{% if user.userprofile.profile_picture %}{{ user.userprofile.profile_picture.url }}{% else %}{% static "noimage.png" %}{% endif %}',
+                        id: {{ user.id }}
+                    },
+                {% endif %}
+            {% endfor %}
+        ];
+
+    </script>
+{% endblock %}

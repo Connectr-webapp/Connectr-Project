@@ -1,0 +1,119 @@
+{% load static %}
+{% load emoji_tags %}
+ <!--- \\\\\\\single post used for websocket when user sends a post-->
+ <!-- Post -->
+<div class="card" 
+    data-post-id='{{ single_post.id }}' 
+    data-post-url="{% url 'channel_posts' channel.id %}">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Profile picture -->
+                <div class="mr-2">
+                    {% if single_post.created_by.userprofile and single_post.created_by.userprofile.profile_picture %}
+                            <div class="{% if single_post.created_by.userprofile.status == 'active' %} user-online {% else %} user-offline {% endif %}">
+                                <img class="rounded-circle profile-pic profile-pic-medium"
+                                        data-profile-url="{% url 'view_user_profile' single_post.created_by.userprofile.id %}" 
+                                        src="{{ single_post.created_by.userprofile.profile_picture.url }}" 
+                                        alt="Profile Picture">
+                            </div>
+                        {% else %}
+                            <div class="{% if single_post.created_by.userprofile.status == 'active' %} user-online {% else %} user-offline {% endif %}">
+                                <img class="rounded-circle profile-pic profile-pic-medium" 
+                                        data-profile-url="{% url 'view_user_profile' single_post.created_by.userprofile.id %}" 
+                                        src="{% static 'noimage.png' %}" 
+                                        alt="Profile Picture Placeholder">
+                            </div>
+                        {% endif %}
+                </div>
+                <!-- Username and date -->
+                <div class="ml-2">
+                    <div class="h5 m-2">{{ single_post.created_by }} </div>
+                    <div class="dark-grey h7 ml-2"> <i class="fa fa-clock-o"></i>{{ single_post.created_date|date:"H:i, b j"|upper }}</div>
+                </div>
+            </div>
+            <!-- Dropdown menu -->
+            {% if not comments %}
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle btn-drop-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="dropdown menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right p-0">
+                    <div class="links-container m-0 p-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            <button class="dropdown-item btn-ci save-post-btn" data-save-post-url="{% url 'save_post' single_post.id %}">Save</button>
+                            {% if single_post.created_by == user %}
+                                <button class="dropdown-item btn-ci edit-btn">Edit</button>
+                                <button class="dropdown-item btn-ci delete-btn" data-delete-url="{% url 'delete_object' model='PostsModel' pk=single_post.id %}">Delete</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Card body text and images -->
+    <div class="card-body">
+    <div class="card-text">
+        {{ single_post.post|safe|emoji_replace }}
+    </div>
+    {% if single_post.images %}
+        <div class="post-images">
+            {% for image_url in single_post.get_image_urls %}
+                {% if image_url %}
+                    <img src="{{ image_url }}" alt="post image">
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+    <!-- Emoji buttons -->
+    <div class="card-footer d-block d-sm-flex justify-content-between align-items-center">
+        <div id="post-emoji" class="card-link">
+            {% url 'emoji_home' model='PostsModel' instance_id=single_post.id as emoji_url %}
+            {% include 'includes/emoji.html' with instance=single_post url=emoji_url %}
+        </div>
+        <!-- Comments link -->
+        {% if not comments %}
+            <a href="{% url 'post_comments' single_post.id %}" class="comments-link">
+                <!-- users that commented profile picture -->
+                <ul class="profile-pics">
+                    {% for post_id, data in post_comments_users.items %}
+                        {% if post_id == single_post.id %}
+                            {% for user in data.commented_users %}
+                                <li class="list-inline-item">
+                                    {% if user.userprofile %}
+                                        {% if user.userprofile.profile_picture %}
+                                            <img class="rounded-circle"  src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+                                        {% else %}
+                                            <img class="rounded-circle"  src="{% static 'noimage.png' %}" alt="Profile Picture Placeholder">
+                                        {% endif %}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+
+                {% if single_post.latest_comment %}
+                    <span class="comment-date">
+                        <span class="mx-2">Last Reply </span>
+                        {% now "Y-m-d" as current_datetime %}             
+                        {% with comment_date=single_post.latest_comment.created_date %}
+                            {% if comment_date|date:"Y-m-d" == current_datetime %}
+                                {{ comment_date|date:"H:i"|upper }} <!-- Display time -->
+                            {% else %}
+                                {{ comment_date|date:"M j"|upper }} <!-- Display date -->
+                            {% endif %}
+                        {% endwith %}
+                    </span>
+                    <span class="view-comments">View Comments</span>
+                {% else %}
+                    <span class="view-comments d-flex">Reply</span>
+                {% endif %}
+            {% endif %}
+        </a>
+    </div>
+</div>

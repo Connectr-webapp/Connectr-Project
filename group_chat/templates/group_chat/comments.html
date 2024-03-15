@@ -1,0 +1,33 @@
+{% load static %}
+{% load emoji_tags %}
+<div class="comments-header border-bottom custom-box p-3 d-flex flex-dir-row">
+    <button class="btn comments-close-btn position-absolute" aria-label="close comments"><i class="fa-solid fa-x"
+            style="color: var(--ci-orange);"></i></button>
+    <h4 class="w-100 text-center">Comment's on {{ post.created_by.username }}'s post</h4>
+</div>
+
+
+<!-- channels posts brought into comments -->
+<div class="scrollable-div h-100 post{{ post.id }}" style="background-color: #e7effd;">
+
+    <!-- bring the post clicked into the comments list  -->
+    {% include 'group_chat/single-post.html' with single_post=post comments=True %}
+
+    {% if comments|length > 0 %}
+    <div class="border-bottom border-top py-3">
+        <p class="ml-3">{{ comments|length }} {% if comments|length > 1 %}replies {% else %} reply {% endif %}</p>
+    </div>
+    {% endif %}
+
+    <div class="comments-list p-1"  data-post-id="{{ post.id }}">
+        {% for comment in comments %}
+           {% include 'group_chat/single-comment.html' with comment=comment %}
+        {% endfor %}
+    </div>
+
+</div>
+<script>
+    postId = $('.comments-list').data('post-id')
+    startWebSocket('post_comments', postId)
+    summernoteEnhancerComments.init('#post-comments', `{% url 'post_comments' post.id %}`)
+</script>

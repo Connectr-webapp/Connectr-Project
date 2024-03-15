@@ -1,0 +1,59 @@
+{% load static %}
+{% load emoji_tags %}
+<!-- single comment for websocket when user sends a comment -->
+                       
+<div class="card p-2 my-2" data-post-id = '{{ comment.id }}' data-post-url="{% url 'post_comments' post.id %}">
+    <div class="d-flex flex-column my-2">
+        <div class="d-flex flex-dir-row justify-content-between">
+            <div class="d-flex flex-dir-row">
+                {% if comment.created_by.userprofile and post.created_by.userprofile.profile_picture %}
+                    <img class="rounded-circle shadow-1-strong mr-2 profile-pic profile-pic-medium" 
+                    src="{{ comment.created_by.userprofile.profile_picture.url }}" 
+                    alt="Profile Picture"
+                    data-profile-url="{% url 'view_user_profile' comment.created_by.userprofile.id %}">
+                {% else %}
+                    <img class="rounded-circle shadow-1-strong mr-2 profile-pic profile-pic-medium"  
+                    src="{% static 'noimage.png' %}" 
+                    alt="Profile Picture Placeholder"
+                    data-profile-url="{% url 'view_user_profile' comment.created_by.userprofile.id %}">
+                {% endif %}  
+                <div class="flex-column ml-2">
+                    <h5 class="mb-1">{{ comment.created_by }}</h5>
+                    <p class="small">{{ comment.created_date|date:"H:i, b j"|upper }}</p>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle btn-drop-down" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="comment menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right custom-box p-0 m-0">
+                    <div class="links-container m-0 p-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            <button class="dropdown-item btn-ci edit-btn">Edit</buttton>
+                            <button class="dropdown-item btn-ci delete-btn"  data-delete-url="{% url 'delete_object' model='CommentsModel' pk=comment.id %}">Delete</button>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body px-0">
+            <div class="card-text p-2">
+                {{ comment.post|safe|emoji_replace }}
+            </div>
+            {% if comment.images %}
+                <div class="post-images">
+                    {% for image_url in comment.get_image_urls %}
+                    {% if image_url %}
+                        <img src= "{{ image_url }}">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="d-flex px-2">
+            {% url 'emoji_home' model='CommentsModel' instance_id=comment.id as emoji_url %}
+            {% include 'includes/emoji.html' with instance=comment url=emoji_url %}
+        </div>
+    </div>
+</div>
