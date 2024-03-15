@@ -2,10 +2,10 @@
 
 <img src="docs/read-me-images/mock-up.png" ><br>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/jamie33O/Code-Innovate-Chat-Hub?color=red)
-![GitHub contributors](https://img.shields.io/github/contributors/jamie33O/Code-Innovate-Chat-Hub?color=orange)
-![GitHub language count](https://img.shields.io/github/languages/count/jamie33O/Code-Innovate-Chat-Hub?color=yellow)
-![GitHub top language](https://img.shields.io/github/languages/top/jamie33O/Code-Innovate-Chat-Hub?color=green)
+![GitHub last commit](https://img.shields.io/[github/last-commit/QasiOmer/Connectr-webapp/Connectr-Project?color=red])
+![GitHub contributors](https://img.shields.io/github/contributors/QasiOmer/Connectr-webapp/Connectr-Project?color=orange)
+![GitHub language count](https://img.shields.io/github/languages/count/QasiOmer/Connectr-webapp/Connectr-Project?color=yellow)
+![GitHub top language](https://img.shields.io/github/languages/top/QasiOmer/Connectr-webapp/Connectr-Project?color=green)
 
 <hr>
 
