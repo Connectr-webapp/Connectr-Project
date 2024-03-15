@@ -1,17 +1,17 @@
-# Connectr - Group Chat App
+# Code Innovate Chat Hub - Group Chat App
 
 <img src="docs/read-me-images/mock-up.png" ><br>
 
-![GitHub last commit](https://img.shields.io/[github/last-commit/QasiOmer/Connectr-webapp/Connectr-Project?color=red])
-![GitHub contributors](https://img.shields.io/github/contributors/QasiOmer/Connectr-webapp/Connectr-Project?color=orange)
-![GitHub language count](https://img.shields.io/github/languages/count/QasiOmer/Connectr-webapp/Connectr-Project?color=yellow)
-![GitHub top language](https://img.shields.io/github/languages/top/QasiOmer/Connectr-webapp/Connectr-Project?color=green)
+![GitHub last commit](https://img.shields.io/github/last-commit/jamie33O/Code-Innovate-Chat-Hub?color=red)
+![GitHub contributors](https://img.shields.io/github/contributors/jamie33O/Code-Innovate-Chat-Hub?color=orange)
+![GitHub language count](https://img.shields.io/github/languages/count/jamie33O/Code-Innovate-Chat-Hub?color=yellow)
+![GitHub top language](https://img.shields.io/github/languages/top/jamie33O/Code-Innovate-Chat-Hub?color=green)
 
 <hr>
 
 ## Table of contents
 
-- [Connectr Hub - Group Chat App](#code-innovate-chat-hub---group-chat-app)
+- [Code Innovate Chat Hub - Group Chat App](#code-innovate-chat-hub---group-chat-app)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
   - [UX](#ux)
@@ -48,9 +48,9 @@
 
 ## Overview
 
-The Connectr is a Django-based web application designed for a coding course community. The home page features group chat functionality, allowing users to participate in discussions related to the Code Innovate coding course. Users can create and join different chat channels, engaging in real-time conversations with fellow learners. The Direct Message section enables one-on-one communication, allowing users to connect and share information privately. Additionally, each user has a Profile Page for managing account settings, viewing activity, and accessing joined chat channels. The application prioritizes real-time updates, supports multimedia content, and incorporates authentication and authorization features for secure user interactions. The Connectr aims to foster collaborative learning and communication within the coding community, offering a platform akin to popular communication tools like Slack.
+The Code Innovate Chat Hub is a Django-based web application designed for a coding course community. The home page features group chat functionality, allowing users to participate in discussions related to the Code Innovate coding course. Users can create and join different chat channels, engaging in real-time conversations with fellow learners. The Direct Message section enables one-on-one communication, allowing users to connect and share information privately. Additionally, each user has a Profile Page for managing account settings, viewing activity, and accessing joined chat channels. The application prioritizes real-time updates, supports multimedia content, and incorporates authentication and authorization features for secure user interactions. The Code Innovate Chat Hub aims to foster collaborative learning and communication within the coding community, offering a platform akin to popular communication tools like Slack.
 <br><br>
-The fully deployed project can be accessed here [Connectr](https://ci-chathub-f163e2297a1b.herokuapp.com/).
+The fully deployed project can be accessed here [Code Innovate Chat Hub](https://ci-chathub-f163e2297a1b.herokuapp.com/).
 <br><br>
 
 ## UX
@@ -63,11 +63,11 @@ This site was created respecting the Five Plans Of Website Design:<br>
 User stories and epics can be viewed here on the project [kanban board ](https://github.com/users/jamie33o/projects/14?pane=issue&itemId=45978557)
 
 **Project Goal:**<br>
-Create a website similar to Slack but specifically tailored for Connectr.
+Create a website similar to Slack but specifically tailored for Code Innovate.
 
 **Project Objectives:**<br>
 
-- Develop a real-time messaging platform to facilitate seamless communication among Connectr community members.
+- Develop a real-time messaging platform to facilitate seamless communication among Code Innovate community members.
 - Implement a user-friendly interface with channels dedicated to various Code Innovate topics, fostering organized discussions.
 - Enhance user engagement with multimedia support in direct messages and emoji reactions for interactive conversations.
 - Establish secure user authentication, authorization, and profile management features to ensure a personalized and protected user experience.
@@ -506,6 +506,24 @@ In the terminal enter the command ` pip3 freeze > requirements.txt`, and a file 
    - Choose the main branch for deploying and enable automatic deployment
    - Select manual deploy for building the App
 
+### Fork the repository
+
+For creating a copy of the repository on your account and change it without affecting the original project, use<b>Fork</b> directly from GitHub:
+
+- On [My Repository Page](https://github.com/jamie33o/pp4), press <i>Fork</i> in the top right of the page
+- A forked version of my project will appear in your repository<br></br>
+
+### Clone the repository
+
+For creating a clone of the repository on your local machine, use<b>Clone</b>:
+
+- On [My Repository Page](https://github.com/jamie33o/pp4), click the <i>Code</i> green button, right above the code window
+- Chose from <i>HTTPS, SSH and GitClub CLI</i> format and copy (preferably <i>HTTPS</i>)
+- In your <i>IDE</i> open <i>Git Bash</i>
+- Enter the command <code>git clone</code> followed by the copied URL
+- Your clone was created
+<hr>
+
 ## Credits
 
 ### Code
@@ -516,4 +534,9 @@ In the terminal enter the command ` pip3 freeze > requirements.txt`, and a file 
 - Django pagination was taken and adapted from [here](https://stackoverflow.com/questions/12275926/django-pagination)
 - The summernote code was got form [here](https://summernote.org/) However, I have customized and refactored it to better align with the specific requirements of my website
 
+## Acknowledgements
+
+- [Code Institute](https://github.com/Code-Institute-Org/full_stack_solutions) for all the material and support offered<br>
+- My mentor [Gareth Mc Girr](https://github.com/Gareth-McGirr) for great tips and his willingness to help me as much as possible with the problems encountered during the development of the project<br>
+- Slack community for great involvement in helping each other<br>
 <hr>
