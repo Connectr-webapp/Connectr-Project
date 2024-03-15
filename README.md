@@ -40,9 +40,6 @@
   - [Testing](#testing)
   - [Deployment](#deployment)
     - [Deploy on Heroku](#deploy-on-heroku)
-    - [Fork the repository](#fork-the-repository)
-    - [Clone the repository](#clone-the-repository)
-  - [Credits](#credits)
     - [Code](#code)
   - [Acknowledgements](#acknowledgements)
 
