@@ -30,4 +30,6 @@ urlpatterns = [
     path('messaging/', include('messaging.urls')),
 
     # get the files in the media folder url in settings.py
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
