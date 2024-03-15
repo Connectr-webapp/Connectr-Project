@@ -1,0 +1,86 @@
+{% if user.is_authenticated %}
+<!-- logo on large screen -->  
+<div id="topnav" class="d-flex d-sm-flex d-lg-none flex-column">
+    <div class="d-flex justify-content-center w-100">
+        <a href="{% url 'channels' %}" class="nav-link logo">
+            <h1 class="logo-font text-black my-0 text-center"><strong>Code Innovate</strong> Chat Hub</h1>
+        </a>
+    </div>
+
+<!-- search icon  -->
+    <div class="d-flex flex-dir-row w-100 ">
+        <div class="w-100 d-flex justify-content-center pb-2">
+            <form class="searchbar my-auto ml-2 header-search-form">
+                <input class="search_input header-search" 
+                type="text"
+                placeholder="Type @ for Users or # for Groups" 
+                data-profiles="{% url 'get_all_user_profiles' %}"
+                data-view-profile-url="{% url 'view_user_profile' 0 %}">
+                <a aria-label="search icon link" href="#" class="search_icon "><i class="fas fa-search"></i></a>
+            </form>
+        </div>
+
+        <!-- settings button -->
+        <div class="d-flex align-items-center">
+            <ul class="list-unstyled my-auto mr-2 pb-1">
+                <li class="list-inline-item dropdown">
+                    <a aria-label="menu icon link" class="text-black" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="settings-cog">
+                            <div><i class="fa-solid fa-bars"></i></div>
+                        </div>
+                    </a>
+                <!-- settings drop down -->
+                <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="user-options">
+                    <div class="links-container m-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            {% if request.user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="btn-ci">Add Channel</a>
+                            {% endif %}
+                            <a class="btn-ci" href="{% url 'contact' %}">Contact Us</a>
+                            <a class="btn-ci" href="{% url 'account_change_password' %}">Change Password</a>
+                            <a class="btn-ci" href="{% url 'account_email' %}">Email settings</a>
+                            <a href="{% url 'account_logout' %}" class="btn-ci">Logout</a>
+                            <a href="#" class="btn-ci delete-account">Delete Account</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> 
+</div>   
+
+
+{% else %}
+
+<div id="topnav" class="d-flex d-sm-flex d-lg-none flex-dir-row justify-content-between">
+    <div class="d-flex justify-content-start">
+        <a href="{% url 'channels' %}" class="nav-link logo">
+            <h1 class="logo-font text-black my-0 text-center"><strong>Code Innovate</strong> Chat Hub</h1>
+        </a>
+    </div>
+
+        <!-- settings button -->
+        <div class="d-flex align-items-center my-2">
+            <ul class="list-unstyled my-auto mr-2 pb-1">
+                <li class="list-inline-item dropdown">
+                    <a aria-label="menu icon link" class="text-black" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="settings-cog">
+                            <div><i class="fa-solid fa-bars"></i></div>
+                        </div>
+                    </a>
+                <!-- settings drop down -->
+                <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="user-options">
+                    <div class="links-container m-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            <a class="btn-ci" href="{% url 'contact' %}">Contact Us</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> 
+</div>  
+
+{% endif %}

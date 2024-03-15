@@ -1,0 +1,53 @@
+{% load emoji_tags %}
+<div class="d-flex flex-dir-row">
+    <!-- Emoji button -->
+    <a data-emoji-url="{{ url }}" href="#" class="card-emoji-btn" aria-label="add emoji button">
+        <i class="fa-regular fa-face-smile fa-lg" style="color: #f58a32;"></i>
+    </a>
+    <ul class="list-inline m-0 p-0 emoji-list{{ instance.id }}">
+        <!-- Loop through emojis and generate list items -->
+        {% for emoji in instance.emojis.all %}
+            <li class="list-inline-item mr-2">
+                <button class="added-emoji-btn btn {{ emoji.emoji_colon_name|slice:'1:-1' }}" 
+                        data-emoji-url="{{ url }}"  
+                        data-target="#emojiModal{{ emoji.id }}" 
+                        data-emoji-code="{{ emoji.emoji_colon_name }}"
+                        aria-label="{{ emoji.emoji_colon_name }}">
+                    {{ emoji.emoji_colon_name|emoji_replace }}
+                    <span>
+                        {% if emoji.users_who_incremented.all|length > 1 %}
+                            {{ emoji.users_who_incremented.all|length }}
+                        {% endif %}
+                    </span>
+                </button>
+                <!-- Small box modal when a user hovers over an emoji -->
+                <div class="emoji-user-count-modal d-none" id="emojiModal{{ emoji.id }}">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="emojiModalLabel">{{ emoji.emoji_colon_name|emoji_replace }}</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    {% for emoji_creators in emoji.users_who_incremented.all %}
+                                        {{ emoji_creators }}
+                                        {% if emoji.users_who_incremented.all|length == 2 and forloop.counter == 1 %}
+                                            and 
+                                        {% elif emoji.users_who_incremented.all|length > 2 %}
+                                            {% if forloop.counter < emoji.users_who_incremented.all|length|add:"-1" %}
+                                                ,
+                                            {% else %}
+                                                and
+                                            {% endif %}
+                                        {% endif %}                                        
+                                    {% endfor %}
+                                    reacted with  {{ emoji.emoji_colon_name }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

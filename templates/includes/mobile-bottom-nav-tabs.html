@@ -1,0 +1,17 @@
+   <!-- Bottom Navigation -->
+{% if request.user.is_authenticated %}
+
+{% with request.resolver_match.url_name as url_name %}
+    <div class="w-100 m-0">
+        <nav>
+            <div class="nav nav-tabs nav-fill">
+                <a class="nav-item nav-link {% if url_name == 'channels' %} active {% endif %}" href="{% url 'channels' %}"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-item nav-link {% if url_name == 'inbox' %} active {% endif %}" href="{% url 'inbox' %}"><i class="fas fa-envelope"></i> Messages</a>
+                <a class="nav-item nav-link {% if url_name == 'user_profile' %} active {% endif %}" href="{% url 'user_profile' %}"><i class="fas fa-user"></i> Profile</a>
+            </div>
+        </nav>
+    </div>
+{% endwith %}
+  
+{% endif %}
+

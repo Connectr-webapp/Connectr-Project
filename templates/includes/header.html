@@ -1,0 +1,91 @@
+<!-- logo on large screen -->
+{% if user.is_authenticated %}
+
+<div id="topnav" class="row d-none d-lg-flex">
+
+    <!-- search icon  -->
+    <div class="col-lg-3">
+        <div class="d-flex justify-content-start h-100">
+            <form class="searchbar my-auto ml-2 header-search-form">
+                <input class="search_input header-search" type="text"
+                placeholder="Type @ for Users or # for Groups">
+                <a aria-label="search icon link" href="#" class="search_icon"><i class="fas fa-search"></i></a>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <a href="{% url 'channels' %}" class="nav-link logo">
+            <h1 class="logo-font text-black my-0 text-center"><strong>Code Innovate</strong> Chat Hub</h1>
+        </a>
+    </div>
+
+    <!-- settings button -->
+    <div class="col-lg-3">
+        <ul class=" list-unstyled d-flex justify-content-end h-100 ">
+            <li class="list-inline-item dropdown my-auto mr-2">
+                <a aria-label="menu icon link" class="text-black" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <div class="settings-cog ">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </a>
+                <!-- settings drop down -->
+
+                <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="user-options">
+                    <div class="links-container m-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            {% if request.user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="btn-ci">Add Channel</a>
+                            {% endif %}
+                            <a class="btn-ci" href="{% url 'contact' %}">Contact Us</a>
+                            <a class="btn-ci" href="{% url 'account_change_password' %}">Change Password</a>
+                            <a class="btn-ci" href="{% url 'account_email' %}">Email settings</a>
+                            <a href="{% url 'account_logout' %}" class="btn-ci">Logout</a>
+                            <a href="#" class="btn-ci delete-account">Delete Account</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% else %}
+
+
+<div id="topnav" class="row d-none d-lg-flex justify-content-between">
+
+    <div class="col-lg-6">
+        <a href="{% url 'channels' %}" class="nav-link logo">
+            <h1 class="logo-font text-black my-0"><strong>Code Innovate</strong> Chat Hub</h1>
+        </a>
+    </div>
+
+    <!-- settings button -->
+    <div class="col-lg-3">
+        <ul class=" list-unstyled d-flex justify-content-end h-100 ">
+            <li class="list-inline-item dropdown my-auto mr-2">
+                <a aria-label="menu icon link" class="text-black" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <div class="settings-cog ">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </a>
+                <!-- settings drop down -->
+
+                <div class="dropdown-menu dropdown-menu-right p-0" aria-labelledby="user-options">
+                    <div class="links-container m-0">
+                        <div class="links-heading">Menu <i class="fa fa-link fa-1x"></i></div>
+                        <div class="links-body pb-2">
+                            <a class="btn-ci" href="{% url 'contact' %}">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endif %}
